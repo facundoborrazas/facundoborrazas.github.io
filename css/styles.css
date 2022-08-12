@@ -188,3 +188,17 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.card-group {
+  margin: 0 10%;
+}
+
+#titleYSub {
+  text-align: center;
+}
+
+#titulo-autos {
+  font-weight: 300;
+  padding: 0 0 2rem 0;
+}
+

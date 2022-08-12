@@ -7,15 +7,17 @@ function autos() {
             const h2 = document.getElementById("titulo-autos");
             h2.innerHTML = "Verás aquí todos los productos de la categoría " + data.catName;
 
-            //Primer Auto
-            const img0 = document.querySelector(".card-img-top0");
-            img0.src = data["products"][0]["image"];
-            const title0 = document.querySelector(".card-title0");
-            title0.innerHTML = data["products"][0]["name"] + " - USD " + data["products"][0]["cost"];
-            const description0 = document.querySelector(".card-text0");
-            description0.innerHTML = data["products"][0]["description"];
-            const soldCount0 = document.querySelector(".text-muted0");
-            soldCount0.innerHTML = data["products"][0]["soldCount"] + " Vendidos";
+            for(var i = 0; i < 5; i++){
+                const img0 = document.querySelector(".card-img-top" + i );
+                img0.src = data["products"][i]["image"];
+                const title0 = document.querySelector(".card-title" + i);
+                title0.innerHTML = data["products"][i]["name"] + " - USD " + data["products"][i]["cost"];
+                const description0 = document.querySelector(".card-text" + i);
+                description0.innerHTML = data["products"][i]["description"];
+                const soldCount0 = document.querySelector(".text-muted" + i);
+                soldCount0.innerHTML = data["products"][i]["soldCount"] + " Vendidos";
+            }
+            
         })
 }
 
