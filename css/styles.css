@@ -189,6 +189,8 @@ a.custom-card:hover {
   color: orange;
 }
 
+/*Seccion autos*/
+
 .card-group {
   margin: 0 10%;
 }
@@ -202,3 +204,9 @@ a.custom-card:hover {
   padding: 0 0 2rem 0;
 }
 
+/*Login*/
+
+div.row {
+  display: flex;
+  justify-content: center;
+}

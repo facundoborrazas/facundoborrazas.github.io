@@ -16,24 +16,57 @@
   </style>
 </head>
 
-<body>
+<body class="text-center">
+
   <main class="mt-5">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <main class="form-signin w-100 m-auto">
+
+      <div class="row">
+
+        <form class="col-3">
+          <img class="mb-4" src="img/login.png" alt="" width="100%" height="35%">
+
+          <h1 class="h3 mb-3 fw-normal">Inicio de sección</h1>
+    
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email</label>
+          </div>
+          <div class="form-floating mb-5">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Contraseña</label>
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary" type="button" id="regBtn">Ingresar</button>
+
+        </form>
+
       </div>
-    </div>
+      
+    </main>
   </main>
+
   <footer class="text-muted">
     <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
       <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+        2022 Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+        <br>
+        <p class="float-end">
+          <a href="#">Volver arriba</a>
+        </p>
     </div>
   </footer>
+
+  <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+    <p>Datos guardados correctamente</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+    <p>Los datos ingresados no cumplen con los requisitos solicitados</p>
+    <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
   <script src="js/login.js"></script>
 </body>
 
