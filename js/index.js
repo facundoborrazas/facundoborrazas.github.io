@@ -12,16 +12,3 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
-
-/*import {seccionAbierta} from "./login";
-
-function seccionIniciada(){
-    if( seccionAbierta === 0){
-        location.href = "login.html";
-    }
-    else{
-        location.href = "index.html";
-    }
-}
-
-seccionIniciada();*/

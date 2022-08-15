@@ -210,3 +210,10 @@ div.row {
   display: flex;
   justify-content: center;
 }
+
+/*imagenes*/
+
+.img-products{
+  max-width: 100%;
+  max-height: 100%;
+}

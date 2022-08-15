@@ -3,6 +3,8 @@ const contraseña = document.querySelector('#floatingPassword');
 const bttn = document.querySelector('#regBtn');
 /*export var seccionAbierta;*/
 
+
+
 bttn.addEventListener('click', function () {
     if (passCaracteres() && verificarInput()) {
         showAlertSuccess();
@@ -17,7 +19,6 @@ bttn.addEventListener('click', function () {
     }
 
 });
-
 
 
 function showAlertSuccess() {
