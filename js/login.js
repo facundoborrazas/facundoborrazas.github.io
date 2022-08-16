@@ -1,11 +1,38 @@
-const email = document.querySelector('#floatingInput');
-const contraseña = document.querySelector('#floatingPassword');
-const bttn = document.querySelector('#regBtn');
-/*export var seccionAbierta;*/
+const email = document.querySelector('#floatingInput'); /*Guardamos en una constante la etiqueta con id "floatingInput"*/
+const contraseña = document.querySelector('#floatingPassword'); /*En esta guardamos la etiqueta con el id "floatingPassword"*/
+const bttn = document.querySelector('#regBtn'); /*En esta ultima guardamos la rtiqueta con id "regBtn"*/
+
+function showAlertSuccess() { /*Funcion para mostrar alerta de datos bien ingresados*/
+    document.getElementById("alert-success").classList.add("show");
+}
+
+function showAlertError() { /*Funcion para mostrar alerta de datos mal ingresados*/
+    document.getElementById("alert-danger").classList.add("show");
+}
 
 
+function passCaracteres() { /*Funcion que evala si el campo de la contraseña tiene más, o menos, caracteres de los que son necesarios para ingresar*/
+    if (contraseña.value.length < 6) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-bttn.addEventListener('click', function () {
+function verificarInput() { /*Funcion que evalua que al menos haya un caracter dentro del campo de email*/
+    if (email.value.length < 1) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+bttn.addEventListener('click', function () { /*En la constante bttn agregamos el evento "click" 
+para que utilizando las anteriores dos funciones nos muestre un mensaje de aprovacion o de 
+desaprobacion segun si hicimos bien el logeo. En el caso positivo, nos llevara a la pantalla inicial
+en el caso negativo nos recargará la pantalla de logeo*/
     if (passCaracteres() && verificarInput()) {
         showAlertSuccess();
         setTimeout(() => {
@@ -19,31 +46,3 @@ bttn.addEventListener('click', function () {
     }
 
 });
-
-
-function showAlertSuccess() {
-    document.getElementById("alert-success").classList.add("show");
-}
-
-function showAlertError() {
-    document.getElementById("alert-danger").classList.add("show");
-}
-
-
-function passCaracteres() {
-    if (contraseña.value.length < 6) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}
-
-function verificarInput() {
-    if (email.value.length < 1) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}
