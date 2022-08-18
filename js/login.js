@@ -38,7 +38,6 @@ en el caso negativo nos recargará la pantalla de logeo*/
         setTimeout(() => {
             location.href = "index.html"
         }, 1000);
-        var seccionAbierta = 1;
     }
     else {
         showAlertError();
@@ -57,11 +56,8 @@ function onSignIn(googleUser) {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     var id_token = googleUser.getAuthResponse().id_token;
     console.log(id_token);
-  }
-
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
+    showAlertSuccess();
+    setTimeout(() => {
+        location.href = "index.html"
+    }, 1000);
+}
