@@ -7,13 +7,18 @@ function showAlertSuccess() { /*Funcion para mostrar alerta de datos bien ingres
     document.getElementById("alert-success").classList.add("show");
 }
 
-function showAlertError() { /*Funcion para mostrar alerta de datos mal ingresados*/
-    document.getElementById("alert-danger").classList.add("show");
+function showAlertEmailError() { /*Funcion para mostrar alerta de email mal ingresada*/
+    document.getElementById("alert-danger-email").classList.add("show");
+}
+
+function showAlertPasswordError() { /*Funcion para mostrar alerta de contraseña mal ingresada*/
+    document.getElementById("alert-danger-password").classList.add("show");
 }
 
 
 function passCaracteres() { /*Funcion que evala si el campo de la contraseña tiene más, o menos, caracteres de los que son necesarios para ingresar*/
     if (contraseña.value.length < 6) {
+        showAlertPasswordError();
         return false;
     }
     else {
@@ -23,6 +28,7 @@ function passCaracteres() { /*Funcion que evala si el campo de la contraseña ti
 
 function verificarInput() { /*Funcion que evalua que al menos haya un caracter dentro del campo de email*/
     if (email.value.length < 1) {
+        showAlertEmailError();
         return false;
     }
     else {
@@ -41,8 +47,7 @@ en el caso negativo nos recargará la pantalla de logeo*/
         }, 1000);
     }
     else {
-        showAlertError();
-        setInterval("location.reload()", 1000);
+        setInterval("location.reload()", 2500);
     }
 
 });
@@ -62,7 +67,9 @@ function onSignIn(googleUser) {
 googleS.addEventListener('click', function () { /*En la constante googleS agregamos el evento "click" 
 para simular que se ha podido ingresar con google y nos muestre un mensaje de aprovacion
  si hicimos bien el logeo.*/
-    showAlertSuccess();
+    setTimeout(() => {
+        showAlertSuccess();
+    }, 5000);
     setTimeout(() => {
         location.href = "index.html"
     }, 7000);
