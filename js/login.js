@@ -57,25 +57,13 @@ function onSignIn(googleUser) {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     var id_token = googleUser.getAuthResponse().id_token;
     console.log(id_token);
-    showAlertSuccess();
-    setTimeout(() => {
-        location.href = "index.html"
-    }, 1000);
 }
 
 googleS.addEventListener('click', function () { /*En la constante googleS agregamos el evento "click" 
-para que utilizando la funcion de google nos muestre un mensaje de aprovacion o de 
-desaprobacion segun si hicimos bien el logeo. En el caso positivo, nos llevara a la pantalla inicial
-en el caso negativo nos recargará la pantalla de logeo*/
-    if (onSignIn(googleUser)) {
-        showAlertSuccess();
-        setTimeout(() => {
-            location.href = "index.html"
-        }, 1000);
-    }
-    else {
-        showAlertError();
-        setInterval("location.reload()", 1000);
-    }
-
+para simular que se ha podido ingresar con google y nos muestre un mensaje de aprovacion
+ si hicimos bien el logeo.*/
+    showAlertSuccess();
+    setTimeout(() => {
+        location.href = "index.html"
+    }, 7000);
 });
