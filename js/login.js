@@ -1,6 +1,7 @@
 const email = document.querySelector('#floatingInput'); /*Guardamos en una constante la etiqueta con id "floatingInput"*/
 const contraseña = document.querySelector('#floatingPassword'); /*En esta guardamos la etiqueta con el id "floatingPassword"*/
 const bttn = document.querySelector('#regBtn'); /*En esta ultima guardamos la rtiqueta con id "regBtn"*/
+const googleS = document.querySelector(".g-signin2");
 
 function showAlertSuccess() { /*Funcion para mostrar alerta de datos bien ingresados*/
     document.getElementById("alert-success").classList.add("show");
@@ -61,3 +62,20 @@ function onSignIn(googleUser) {
         location.href = "index.html"
     }, 1000);
 }
+
+googleS.addEventListener('click', function () { /*En la constante googleS agregamos el evento "click" 
+para que utilizando la funcion de google nos muestre un mensaje de aprovacion o de 
+desaprobacion segun si hicimos bien el logeo. En el caso positivo, nos llevara a la pantalla inicial
+en el caso negativo nos recargará la pantalla de logeo*/
+    if (onSignIn(googleUser)) {
+        showAlertSuccess();
+        setTimeout(() => {
+            location.href = "index.html"
+        }, 1000);
+    }
+    else {
+        showAlertError();
+        setInterval("location.reload()", 1000);
+    }
+
+});
