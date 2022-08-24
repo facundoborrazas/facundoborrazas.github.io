@@ -1,4 +1,4 @@
-const URL = "https://japceibal.github.io/emercado-api/cats_products/101.json"; /*archivo .json a utilizar guardado en una constante para luego poder utilizar*/
+const URL = "https://japceibal.github.io/emercado-api/cats_products/" + localStorage.getItem("catID") + ".json"; /*archivo .json a utilizar guardado en una constante para luego poder utilizar*/
 const cards = document.querySelector("#cards"); /*Seleccionamos la etiqueta con la id "cards" y la guardamos en una constante para luego poder utilizar*/
 
 /*Se hace una funcion para generar las tarjetas de cada producto utilizando el .json*/
