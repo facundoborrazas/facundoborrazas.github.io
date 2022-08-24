@@ -41,6 +41,7 @@ para que utilizando las anteriores dos funciones nos muestre un mensaje de aprov
 desaprobacion segun si hicimos bien el logeo. En el caso positivo, nos llevara a la pantalla inicial
 en el caso negativo nos recargará la pantalla de logeo*/
     if (passCaracteres() && verificarInput()) {
+        localStorage.setItem("usuario", email.value);
         showAlertSuccess();
         setTimeout(() => {
             location.href = "index.html"
