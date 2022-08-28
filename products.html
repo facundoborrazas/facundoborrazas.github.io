@@ -31,20 +31,63 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item" id="barraDeUsuario">
-            <a class="nav-link" href="login.html">Iniciar Sección</a> <!--Link para acceder a la pantalla de login-->
+            <a class="nav-link" href="login.html">Iniciar Sección</a>
+            <!--Link para acceder a la pantalla de login-->
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
+
+  <!--Titulos-->
+  <header class="text-center" id="encabezado">
+    <h2 class="fw-bolder" id="titulosH2">Productos</h2>
+    <p id="titulo-autos" class="lead"></p>
+  </header>
+
   <main class="pb-5 container">
 
-    <!--Titulos-->
-    <header class="text-center p-4">
-      <h2 class="fw-bolder">Productos</h2>
-      <p id="titulo-autos" class="lead"></p>
-    </header>
+
+    <div class="row">
+      <div class="col text-end">
+        <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+          <input type="radio" class="btn-check" name="options" id="sortAscP">
+          <label class="btn btn-light" for="sortAsc">A-Z</label>
+          <input type="radio" class="btn-check" name="options" id="sortDescP">
+          <label class="btn btn-light" for="sortDesc">Z-A</label>
+          <input type="radio" class="btn-check" name="options" id="sortByCountP" checked>
+          <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i></label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 offset-lg col-md-10 mb-1 container">
+        <div class="row container p-2 m-0">
+          <div class="col-lg-6">
+            <input class="form-control" type="search" placeholder="Buscar" id="search">
+          </div>
+          <div class="col-lg">
+            <input class="form-control" type="button" value="Buscar" id="searchBtn">
+          </div>
+          <div class="col">
+            <p class="font-weight-normal text-end my-2">Cant.</p>
+          </div>
+          <div class="col">
+            <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMinP">
+          </div>
+          <div class="col">
+            <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMaxP">
+          </div>
+          <div class="col p-0">
+            <div class="btn-group" role="group">
+              <button class="btn btn-light btn-block" id="rangeFilterCountP">Filtrar</button>
+              <button class="btn btn-link btn-sm" id="clearRangeFilterP">Limpiar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <section class="row col">
       <div class="row" id="cards">
@@ -73,7 +116,7 @@
       <div></div>
     </div>
   </div>
-  
+
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/products.js"></script>

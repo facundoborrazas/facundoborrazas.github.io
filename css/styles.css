@@ -189,11 +189,35 @@ a.custom-card:hover {
   color: orange;
 }
 
-/*Seccion autos*/
+/*Secciones productos*/
 
 #titulo-autos {
   font-weight: 300;
   padding: 0 0 2rem 0;
+}
+
+.portadaProducts{ 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  height: 15rem; 
+  position: relative; 
+  margin-bottom: 1rem;
+}
+
+.sombrePortadaProducts{
+  position: absolute; 
+  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgb(0 0 0/ 70%); 
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.letrasDelH2YP{
+color: white;
 }
 
 /*Login*/
