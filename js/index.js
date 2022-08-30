@@ -26,7 +26,6 @@ function inicioDeSeccion() {
         </ul>
         </li>
         `
-        
     }
     if(conocido === null) {
         location.href="./login.html";
