@@ -31,19 +31,48 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item" id="barraDeUsuario">
-            <a class="nav-link" href="login.html">Iniciar Sección</a> <!--Link para acceder a la pantalla de login-->
+            <a class="nav-link" href="login.html">Iniciar Sección</a>
+            <!--Link para acceder a la pantalla de login-->
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
+    <section class="row col">
+      <!--Aquí adentro se iran generando las tarjetas con los productos correspondientes de la categoria elegida-->
+      <div class="card text-center">
+        <div class="card-header">
+          <!--Aquí adentro va el carousel-->
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner"  id="carousel">
+              <!--Aquí van las imagenes-->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="card-body" id="cards">
+
+        </div>
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+        </div>
+    </section>
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
@@ -54,6 +83,9 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+
+
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

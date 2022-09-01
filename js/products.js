@@ -1,38 +1,48 @@
 const cards = document.querySelector("#cards"); /*Seleccionamos la etiqueta con la id "cards" y la guardamos en una constante para luego poder utilizar*/
-const buscador = document.querySelector("#search").value;
+const buscador = document.querySelector("#search");
 const buscadorBtn = document.querySelector("#searchBtn");
 const fondoProducto = document.querySelector("#encabezado");
 const btnMin = document.querySelector("#rangeFilterCountMin");
+const enlacesProductos = document.querySelector("#linkProduct");
+const resultado = document.querySelector("#resultado");
 
-/*fetch para generar las tarjetas de cada producto utilizando el .json*/
+
+/*fetch para generar la lista de busqueda*/
 fetch(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
   .then((resp) => resp.json())
   .then((data) => {
     /*Obtengo el objeto del .json*/
+    // Buscador
+    const productos = data.products;
+    const filtro = () => {
+      resultado.innerHTML = "";
 
-    const cantidadDeProductos = data.products.length; /*Guardo en una constante la cantidad de arrays del .json y lo guardo en una variable para luego utilizarlo*/
-    let productos = data.products; /*Guardo en una variable el contenido de los arrays "products" del .json*/
-    console.log(data.products);
-    let i = 0; /*Iniciamos un contador*/
+      const texto = buscador.value.toLowerCase();
+      for (let products of productos) {
+        let nombre = products.name.toLowerCase();
+        if (nombre.indexOf(texto) !== -1) {
+          resultado.innerHTML += ` 
+          <ul class="list-group row row-1 mb-1">
+            <li class="list-group-item col-3"><a href="/product-info.html" style="text-decoration: none;" onclick="setCatID(${products.id})">${products.name} - USD ${products.cost}</a></li>
+          </ul>
+          `
+        }
+      }
 
-    for (let product of productos) { /*Utilizo un for of para recorrer la informacion de la variable "productos"*/
-      i++ /*Se agrega 1 a la variable "i" por cada vuelta que hace el for of*/
+      if (texto === "") {
+        resultado.innerHTML = " ";
+      }
 
-      /*En la constante "cards" se ingresa el siguiente HTML que corresponde a cada tarjeta con su correspondiente informacion de cada producto*/
-      cards.innerHTML += `
-                <div class="card" style="width: 33.333%">
-                <img src="${product.image}" class="card-img-top" alt="Imagen representativa de ${data.catName}" style="width: 100%;">
-                <div class="card-body">
-                  <h5 class="card-title">${product.name} - USD ${product.cost}</h5>
-                  <p class="card-text">${product.description}</p>
-                  <p class="card-text}"><small class="text-muted">${product.soldCount} Vendidos</small></p>
-                  <a href="/product-info.html" class="btn btn-primary">Ver</a>
-                </div>
-              </div>
-                `
+      if (resultado.innerHTML === "") {
+        resultado.innerHTML += ` 
+        <li>Producto no encontrado...</li>
+        `
+      }
     }
 
+    buscador.addEventListener("keyup", filtro);
   })
+
 
 /*fetch para generar las portadas de cada categoria utilizando el .json*/
 fetch(CATEGORIES_URL)
@@ -59,7 +69,7 @@ const ORDER_DESC_BY_NAME = "ZA"; // Orden descendente
 const ORDER_BY_PROD_COUNT = "Cant."; // Orden cantidad vendida 
 const ORDER_BY_PROD_COST_DOWN = "Menos$"; // Orden menos precio 
 const ORDER_BY_PROD_COST_UP = "Mas$"; // Orden mas precio 
-let currentCategoriesArray = []; 
+let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
@@ -114,8 +124,9 @@ function sortCategories(criteria, array) {
 }
 
 function setCatID(id) {
-  localStorage.setItem("catID", id);
-  window.location = "products.html"
+  localStorage.setItem("catIDP", id);
+  window.location = "products-info.html"
+
 }
 
 // Funcion para mostrar los productos segun el filtro usado 
@@ -130,18 +141,19 @@ function showCategoriesList() {
       ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))) {
 
       htmlContentToAppend += `
-              <div class="card" style="width: 33.333%">
+      <a href="/product-info.html" style="text-decoration: none;">
+              <div class="card m-1" style="width: 33.333% " onclick="setCatID(${category.id})">
               <img src="${category.image}" class="card-img-top" alt="Imagen representativa de ${category.name}" style="width: 100%;">
               <div class="card-body">
                 <h5 class="card-title">${category.name} - USD ${category.cost}</h5>
                 <p class="card-text">${category.description}</p>
                 <p class="card-text}"><small class="text-muted">${category.soldCount} Vendidos</small></p>
-                <a href="/product-info.html" class="btn btn-primary">Ver</a>
+                <a href="/product-info.html" id="linkProduct" class="btn btn-primary">Ver</a>
               </div>
             </div>
+            </a>
               `
     }
-
     cards.innerHTML = htmlContentToAppend;
   }
 }
@@ -222,5 +234,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     }
 
     showCategoriesList();
+
   });
+
 });
+
+
