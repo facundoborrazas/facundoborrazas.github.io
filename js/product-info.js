@@ -1,30 +1,73 @@
 const infoProduct = document.getElementById("cards");
 const infoCardProduct = document.getElementById("infoCardProduct");
+const carouselIndicators = document.getElementById("carouselIndicators");
+const productosRelacionados = document.getElementById("productosRelacionados");
 
 fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE)
   .then((resp) => resp.json())
   .then((data) => {
     /*Obtengo el objeto del .json*/
     const carousel = document.getElementById("carousel");
-    console.log(data);
+    const infoRelatedProducts = data.relatedProducts;
+    console.log(infoRelatedProducts);
     cards.innerHTML =
       `
         <h5 class="card-title">${data.name} - ${data.currency} ${data.cost}</h5>
-        <h6>${data.soldCount} Vendidos</h6>
-        <p class="card-text">${data.description}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h6>${data.description}</h6>
+        <p class="card-text">${data.soldCount} Vendidos</p>
+        <a href="#" class="btn btn-primary">Comprar</a>
+        <a href="#" class="btn btn-primary">Agregar al carrito</a>
       `
+
     for (i = 0; i < data.images.length; i++) {
-      carousel.innerHTML +=
-        `
-      <div class="carousel-item active">
-      <img src="${data.images[i]}" class="d-block w-100" alt="...">
-    </div>
+
+      if (i === 0) {
+        carouselIndicators.innerHTML = `
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${[i]}" class="active" aria-current="true" aria-label="Slide ${[i + 1]}"></button>
+      `
+      } else {
+        carouselIndicators.innerHTML += `
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${[i]}" aria-label="Slide ${[i + 1]}"></button>
+      `
+      }
+
+      if (i === 0) {
+        carousel.innerHTML = `
+         <div class="carousel-item active">
+            <img src="${data.images[i]}" class="d-block w-100" alt="...">
+         </div>
+         `
+      } else {
+        carousel.innerHTML += `
+        <div class="carousel-item">
+          <img src="${data.images[i]}" class="d-block w-100" alt="...">
+        </div>
+       `
+      }
+    }
+
+    for (t = 0; t < data.relatedProducts.length; t++) {
+      productosRelacionados.innerHTML += `
+      <div class="card col-6">
+        <div class="card-header text-center">
+          <img src="${infoRelatedProducts[t].image}" alt="Imagen representativa de ${infoRelatedProducts[t].name}" style="width: 100%;">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">${infoRelatedProducts[t].name}</h5>
+          <a href="/product-info.html" class="btn btn-primary" onclick="setCatID(${infoRelatedProducts[t].id})">Ver Producto</a>
+        </div>
+      </div>
       `
     }
 
   }
   )
+
+  function setCatID(id) {
+    localStorage.setItem("catIDP", id);
+    window.location = "products-info.html"
+  
+  }
 
 /*
 <div class="card text-center">

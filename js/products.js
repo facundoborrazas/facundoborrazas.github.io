@@ -141,17 +141,15 @@ function showCategoriesList() {
       ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))) {
 
       htmlContentToAppend += `
-      <a href="/product-info.html" style="text-decoration: none;">
-              <div class="card m-1" style="width: 33.333% " onclick="setCatID(${category.id})">
+              <div class="card m-1" style="width: 33.333% ">
               <img src="${category.image}" class="card-img-top" alt="Imagen representativa de ${category.name}" style="width: 100%;">
               <div class="card-body">
                 <h5 class="card-title">${category.name} - USD ${category.cost}</h5>
                 <p class="card-text">${category.description}</p>
                 <p class="card-text}"><small class="text-muted">${category.soldCount} Vendidos</small></p>
-                <a href="/product-info.html" id="linkProduct" class="btn btn-primary">Ver</a>
+                <a href="/product-info.html" id="linkProduct" class="btn btn-primary" onclick="setCatID(${category.id})">Ver</a>
               </div>
             </div>
-            </a>
               `
     }
     cards.innerHTML = htmlContentToAppend;

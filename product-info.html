@@ -38,26 +38,28 @@
       </div>
     </div>
   </nav>
-  <main>
-    <section class="row col">
+
+  <main class="mt-2">
+
+    <section class="row col m-0">
       <!--Aquí adentro se iran generando las tarjetas con los productos correspondientes de la categoria elegida-->
-      <div class="card text-center">
+      <div class="card col-6">
         <div class="card-header">
           <!--Aquí adentro va el carousel-->
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <div class="carousel-indicators" id="carouselIndicators">
+              <!--Aquí van los indicadores-->
             </div>
-            <div class="carousel-inner"  id="carousel">
+            <div class="carousel-inner" id="carousel">
               <!--Aquí van las imagenes-->
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
@@ -66,8 +68,38 @@
         <div class="card-body" id="cards">
 
         </div>
-        <div class="card-footer text-muted">
-          2 days ago
+
+      </div>
+
+      <div class="col-6" id="comentarios">
+        <div class="card text-center">
+          <div class="card-header">
+            <h3>Comentarios 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-dots" viewBox="0 0 16 16">
+              <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+              <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg></h3>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+          </div>
+      </div>
+
+    </section>
+
+    <section class="mt-2">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Productos Relacionados</h3>
+        </div>
+        <div class="card-body row col m-0" id="productosRelacionados">
+          <!--Acá se van a generar las cartas de los productos relacionados-->
         </div>
         </div>
     </section>
