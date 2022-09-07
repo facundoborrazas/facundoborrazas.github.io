@@ -7,6 +7,7 @@
   <title>eMercado - Todo lo que busques está aquí</title>
 
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -66,29 +67,50 @@
           </div>
         </div>
         <div class="card-body" id="cards">
+          <!--Aca se genera la info del producto-->
+        </div>
+        <hr>
+        <div class="card-body">
+          <!--Div donde se comenta-->
+          <label for="Item" class="form-label">Comentar:</label>
+          <input type="text" class="form-control" id="comentar">
+          <button type="button" class="btn btn-primary my-3" id="btnComentar">Comentar</button>
+          <div>
+            <fieldset>
+              <legend><span class="fa fa-star checked"></span>Estrellas<span class="fa fa-star checked"></span></legend>
+              <label><input type="radio" name="estrella" id="estrella5" checked> 5</label>
+              <label><input type="radio" name="estrella" id="estrella4"> 4</label>
+              <label><input type="radio" name="estrella" id="estrella3"> 3</label>
+              <label><input type="radio" name="estrella" id="estrella2"> 2</label>
+              <label><input type="radio" name="estrella" id="estrella1"> 1</label>
+              <label><input type="radio" name="estrella" id="estrella0"> 0</label>
+            </fieldset>
+          </div>
 
         </div>
 
       </div>
 
       <div class="col-6" id="comentarios">
-        <div class="card text-center">
-          <div class="card-header">
-            <h3>Comentarios 
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-dots" viewBox="0 0 16 16">
-              <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-              <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-            </svg></h3>
+        <div>
+          <div class="card-header card text-center">
+            <h3>Comentarios
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-chat-square-dots" viewBox="0 0 16 16">
+                <path
+                  d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                <path
+                  d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+              </svg>
+            </h3>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+          <div class="card-body" id="comentariosDePersonas" style="overflow: auto; width: 100%; height: 50rem">
+            <!--Aquí se iran colocando los comentarios de los demas-->
           </div>
-          <div class="card-footer text-muted">
-            2 days ago
+          <div class="card-footer text-muted text-center text-capitalize">
+            <p>Gracias por comentar</p>
           </div>
-          </div>
+        </div>
       </div>
 
     </section>
@@ -101,7 +123,7 @@
         <div class="card-body row col m-0" id="productosRelacionados">
           <!--Acá se van a generar las cartas de los productos relacionados-->
         </div>
-        </div>
+      </div>
     </section>
   </main>
 

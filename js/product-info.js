@@ -2,14 +2,65 @@ const infoProduct = document.getElementById("cards");
 const infoCardProduct = document.getElementById("infoCardProduct");
 const carouselIndicators = document.getElementById("carouselIndicators");
 const productosRelacionados = document.getElementById("productosRelacionados");
+const comentariosDePersonas = document.getElementById("comentariosDePersonas");
+//Constantes de puntajes
+const puntaje5 = `
+<p>Puntaje:
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+</p>`;
+const puntaje4 = `
+<p>Puntaje:
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+</p>`;
+const puntaje3 = `
+<p>Puntaje:
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</p>`;
+const puntaje2 = `
+<p>Puntaje:
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</p>`;
+const puntaje1 = `
+<p>Puntaje:
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</p>`;
+const puntaje0 = `
+<p>Puntaje:
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</p>`;
 
+//fetch que llama al .json del producto y se utiliza para hacer la tarjeta del producto
 fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE)
   .then((resp) => resp.json())
   .then((data) => {
     /*Obtengo el objeto del .json*/
     const carousel = document.getElementById("carousel");
-    const infoRelatedProducts = data.relatedProducts;
-    console.log(infoRelatedProducts);
+    const infoRelatedProducts = data.relatedProducts; //Constante que guarda la info de cada producto relacionado
+    //Tarjeta con la info del producto
     cards.innerHTML =
       `
         <h5 class="card-title">${data.name} - ${data.currency} ${data.cost}</h5>
@@ -18,7 +69,7 @@ fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE)
         <a href="#" class="btn btn-primary">Comprar</a>
         <a href="#" class="btn btn-primary">Agregar al carrito</a>
       `
-
+      //Carousel de fotos de cada producto
     for (i = 0; i < data.images.length; i++) {
 
       if (i === 0) {
@@ -45,7 +96,7 @@ fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE)
        `
       }
     }
-
+    //Tarjeta de los productos relacionados con su info correspondiente
     for (t = 0; t < data.relatedProducts.length; t++) {
       productosRelacionados.innerHTML += `
       <div class="card col-6">
@@ -59,58 +110,91 @@ fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE)
       </div>
       `
     }
-
   }
   )
+//Funcion para obtener el id del producto relacionado y para que te redireccione a ese producto
+function setCatID(id) {
+  localStorage.setItem("catIDP", id);
+  window.location = "products-info.html"
 
-  function setCatID(id) {
-    localStorage.setItem("catIDP", id);
-    window.location = "products-info.html"
-  
+}
+//Fetch para llamar a los comentarios de cada producto
+fetch(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("catIDP") + EXT_TYPE)
+  .then((resp) => resp.json())
+  .then((data) => {
+    //For que publica cada comentario
+    for (i = 0; i < data.length; i++) {
+      comentariosDePersonas.innerHTML += `<li class="list-group-item">
+      <h5 class="text-left text-capitalize">${data[i].user}:</h6>
+      <p>${data[i].description}</p>
+      <p><small>${data[i].dateTime}</small></p>
+      </li>`
+      if ((data[i].score) === 5) {
+        comentariosDePersonas.innerHTML += puntaje5;
+      } else if ((data[i].score) === 4) {
+        comentariosDePersonas.innerHTML += puntaje4;
+      } else if ((data[i].score) === 3) {
+        comentariosDePersonas.innerHTML += puntaje3;
+      } else if ((data[i].score) === 2) {
+        comentariosDePersonas.innerHTML += puntaje2;
+      } else if ((data[i].score) === 1) {
+        comentariosDePersonas.innerHTML += puntaje1;
+      } else if ((data[i].score) === 0) {
+        comentariosDePersonas.innerHTML += puntaje0;
+      }
+    }
+    //For que agrega el comentario hecho anteriormente
+    for (i = 0; i < 6; i++) {
+      if (localStorage.getItem("comentarioPropio" + i + localStorage.getItem("catIDP")) !== null) {
+        comentariosDePersonas.innerHTML += localStorage.getItem("comentarioPropio" + i + localStorage.getItem("catIDP"));
+      }
+    }
+  })
+//Funcion para crear un comentario propio
+document.getElementById("btnComentar").addEventListener("click", function () {
+  const comentario = document.getElementById("comentar").value;
+  const vaciarComentario = document.getElementById("comentar");
+  const estrella_5 = document.getElementById("estrella5");
+  const estrella_4 = document.getElementById("estrella4");
+  const estrella_3 = document.getElementById("estrella3");
+  const estrella_2 = document.getElementById("estrella2");
+  const estrella_1 = document.getElementById("estrella1");
+  const estrella_0 = document.getElementById("estrella0");
+  let date = new Date().toDateString();
+  const comentarioHecho = `
+  <li class="list-group-item">
+  <h5 class="text-left text-capitalize">${localStorage.getItem("usuario")}:</h6>
+  <p>${comentario}</p>
+  <p><small>${date}</small></p>
+  </li>
+  `;
+
+  if (comentario.length > 0) {
+    if (estrella_5.checked) {
+      comentariosDePersonas.innerHTML += comentarioHecho;
+      comentariosDePersonas.innerHTML += puntaje5;
+      localStorage.setItem("comentarioPropio5" + localStorage.getItem("catIDP"), (comentarioHecho + puntaje5));
+    } else if (estrella_4.checked) {
+      comentariosDePersonas.innerHTML += comentarioHecho;
+      comentariosDePersonas.innerHTML += puntaje4;
+      localStorage.setItem("comentarioPropio4" + localStorage.getItem("catIDP"), (comentarioHecho + puntaje4));
+    } else if (estrella_3.checked) {
+      comentariosDePersonas.innerHTML += comentarioHecho;
+      comentariosDePersonas.innerHTML += puntaje3;
+      localStorage.setItem("comentarioPropio3" + localStorage.getItem("catIDP"), (comentarioHecho + puntaje3));
+    } else if (estrella_2.checked) {
+      comentariosDePersonas.innerHTML += comentarioHecho;
+      comentariosDePersonas.innerHTML += puntaje2;
+      localStorage.setItem("comentarioPropio2" + localStorage.getItem("catIDP"), (comentarioHecho + puntaje2));
+    } else if (estrella_1.checked) {
+      comentariosDePersonas.innerHTML += comentarioHecho;
+      comentariosDePersonas.innerHTML += puntaje1;
+      localStorage.setItem("comentarioPropio1" + localStorage.getItem("catIDP"), (comentarioHecho + puntaje1));
+    } else if (estrella_0.checked) {
+      comentariosDePersonas.innerHTML += comentarioHecho;
+      comentariosDePersonas.innerHTML += puntaje0;
+      localStorage.setItem("comentarioPropio0" + localStorage.getItem("catIDP"), (comentarioHecho + puntaje0));
+    }
+    vaciarComentario.value = "";
   }
-
-/*
-<div class="card text-center">
-<div class="card-header">
-  Featured
-</div>
-<div class="card-body">
-  <h5 class="card-title">Special title treatment</h5>
-  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-  <a href="#" class="btn btn-primary">Go somewhere</a>
-</div>
-<div class="card-footer text-muted">
-  2 days ago
-</div>
-</div>
-*/
-
-
-/*
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-*/
+})
