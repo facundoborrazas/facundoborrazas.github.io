@@ -22,7 +22,9 @@ function inicioDeSeccion() {
         <img src="/img/img_perfil.png" alt="" width="30" height="24"> ${localStorage.getItem("usuario")} 
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="./login.html">Cerrar Seccion</a></li>
+            <li><a class="dropdown-item" href="./my-profile.html">Perfil</a></li>
+            <li><a class="dropdown-item" href="./cart.html">Carrito</a></li>
+            <li><a class="dropdown-item" href="./login.html">Cerrar Seccion</a></li>
         </ul>
         </li>
         `

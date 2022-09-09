@@ -159,13 +159,16 @@ document.getElementById("btnComentar").addEventListener("click", function () {
   const estrella_3 = document.getElementById("estrella3");
   const estrella_2 = document.getElementById("estrella2");
   const estrella_1 = document.getElementById("estrella1");
-  const estrella_0 = document.getElementById("estrella0");
-  let date = new Date().toDateString();
+  const estrella_0 = document.getElementById("estrella0"); 
+  //Esto se hace para estraer la parte que realmente quiero de la hora
+  let date = new Date().toString();
+  let dataHs = date.indexOf("G");
+  let dataHsExtraido = date.substring(0,dataHs);
   const comentarioHecho = `
   <li class="list-group-item">
   <h5 class="text-left text-capitalize">${localStorage.getItem("usuario")}:</h6>
   <p>${comentario}</p>
-  <p><small>${date}</small></p>
+  <p><small>${dataHsExtraido}</small></p>
   </li>
   `;
 

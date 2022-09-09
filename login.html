@@ -7,6 +7,7 @@
 
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="41946208457-m2hsc97f16mm4p0j1f4tf7fpmfd4th3q.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <title>eMercado - Todo lo que busques está aquí</title>
 
@@ -43,8 +44,7 @@
         <button class="w-100 btn btn-lg btn-primary mb-2" type="button" id="regBtn">Ingresar</button>
 
         <!--Boton de login de google-->
-        <p class="fs-6 fw-lighter text-muted">Tambien puedes acceder con:</p>
-        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="white"></div>
       </form>
 
     </div>
@@ -79,7 +79,8 @@
   </div>
 
   <script src="js/login.js"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script> <!--Script de google-->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script> <!--Script de google-->
 </body>
 
 </html>

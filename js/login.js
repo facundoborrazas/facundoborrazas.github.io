@@ -41,7 +41,10 @@ para que utilizando las anteriores dos funciones nos muestre un mensaje de aprov
 desaprobacion segun si hicimos bien el logeo. En el caso positivo, nos llevara a la pantalla inicial
 en el caso negativo nos recargará la pantalla de logeo*/
     if (passCaracteres() && verificarInput()) {
-        localStorage.setItem("usuario", email.value);
+        let nombreUsusarioConArroba = email.value;
+        let nombreUsuario = nombreUsusarioConArroba.indexOf("@");
+        let nombreUsuarioExtraido = nombreUsusarioConArroba.substring(0,nombreUsuario);
+        localStorage.setItem("usuario", nombreUsuarioExtraido[0].toUpperCase() + nombreUsuarioExtraido.substring(1));
         showAlertSuccess();
         setTimeout(() => {
             location.href = "index.html"
@@ -69,16 +72,3 @@ function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     console.log("ID Token: " + id_token);
   }
-
-googleS.addEventListener('click', function () { /*En la constante googleS agregamos el evento "click" 
-para simular que se ha podido ingresar con google y nos muestre un mensaje de aprovacion
- si hicimos bien el logeo.*/
- if(onSignIn(googleUser)){
-    setTimeout(() => {
-        showAlertSuccess();
-    }, 5000);
-    setTimeout(() => {
-        location.href = "index.html"
-    }, 7000);
- }
-});
