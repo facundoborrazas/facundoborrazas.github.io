@@ -1,7 +1,6 @@
 const email = document.querySelector('#floatingInput'); /*Guardamos en una constante la etiqueta con id "floatingInput"*/
 const contraseña = document.querySelector('#floatingPassword'); /*En esta guardamos la etiqueta con el id "floatingPassword"*/
 const bttn = document.querySelector('#regBtn'); /*En esta ultima guardamos la rtiqueta con id "regBtn"*/
-const googleS = document.querySelector(".g-signin2");
 
 function showAlertSuccess() { /*Funcion para mostrar alerta de datos bien ingresados*/
     document.getElementById("alert-success").classList.add("show");
@@ -58,17 +57,10 @@ en el caso negativo nos recargará la pantalla de logeo*/
 
 /*Google:*/
 
-function handleCredentialResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
-  }
-  window.onload = function () {
-    google.accounts.id.initialize({
-      client_id: "41946208457-m2hsc97f16mm4p0j1f4tf7fpmfd4th3q.apps.googleusercontent.com",
-      callback: handleCredentialResponse
-    });
-    google.accounts.id.renderButton(
-      document.getElementById("buttonDiv"),
-      { theme: "outline", size: "large" }  // customization attributes
-    );
-    google.accounts.id.prompt(); // also display the One Tap dialog
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }

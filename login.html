@@ -4,6 +4,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--meta de google-->
+  <meta name="google-signin-client_id" content="41946208457-m2hsc97f16mm4p0j1f4tf7fpmfd4th3q.apps.googleusercontent.com">
 
   <title>eMercado - Todo lo que busques está aquí</title>
 
@@ -40,7 +42,7 @@
         <button class="w-100 btn btn-lg btn-primary mb-2" type="button" id="regBtn">Ingresar</button>
 
         <!--Boton de login de google-->
-        <div id="buttonDiv"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
       </form>
 
     </div>
@@ -75,7 +77,8 @@
   </div>
 
   <script src="js/login.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!--Script de google-->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>
