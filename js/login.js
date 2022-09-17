@@ -41,6 +41,7 @@ desaprobacion segun si hicimos bien el logeo. En el caso positivo, nos llevara a
 en el caso negativo nos recargará la pantalla de logeo*/
     if (passCaracteres() && verificarInput()) {
         let nombreUsusarioConArroba = email.value;
+        localStorage.setItem("email", nombreUsusarioConArroba);
         let nombreUsuario = nombreUsusarioConArroba.indexOf("@");
         let nombreUsuarioExtraido = nombreUsusarioConArroba.substring(0,nombreUsuario);
         localStorage.setItem("usuario", nombreUsuarioExtraido[0].toUpperCase() + nombreUsuarioExtraido.substring(1));
@@ -54,13 +55,3 @@ en el caso negativo nos recargará la pantalla de logeo*/
     }
 
 });
-
-/*Google:*/
-
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
