@@ -6,13 +6,10 @@ const btnMin = document.querySelector("#rangeFilterCountMin");
 const enlacesProductos = document.querySelector("#linkProduct");
 const resultado = document.querySelector("#resultado");
 
-
-/*fetch para generar la lista de busqueda*/
-fetch(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
-  .then((resp) => resp.json())
-  .then((data) => {
-    /*Obtengo el objeto del .json*/
-    // Buscador
+async function listaDeBusqueda() { /*fetch para generar la lista de busqueda*/
+  try {
+    const result = await fetch(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE);
+    const data = await result.json();
     const productos = data.products;
     const filtro = () => {
       resultado.innerHTML = "";
@@ -41,13 +38,16 @@ fetch(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
     }
 
     buscador.addEventListener("keyup", filtro);
-  })
+  } catch (error) {
+    console.log("Error: " + error);
+  }
+}
 
+async function generadorDePortadas() { /*fetch para generar las portadas de cada categoria*/
+  try {
+    const result = await fetch(CATEGORIES_URL);
+    const data = await result.json();
 
-/*fetch para generar las portadas de cada categoria utilizando el .json*/
-fetch(CATEGORIES_URL)
-  .then((resp) => resp.json())
-  .then((data) => {
     /*Obtengo el objeto del .json*/
     const portadaCategoría = data[localStorage.getItem("catID") - 101];
 
@@ -59,8 +59,15 @@ fetch(CATEGORIES_URL)
         </div>
         </header>
       `
+  } catch (error) {
+    console.log("Error: " + error);
   }
-  )
+}
+
+listaDeBusqueda();
+generadorDePortadas();
+
+
 
 // Aquí empieza el filtro 
 

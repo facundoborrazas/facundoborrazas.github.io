@@ -53,75 +53,75 @@ const puntaje0 = `
 <span class="fa fa-star"></span>
 </p>`;
 
-//fetch que llama al .json del producto y se utiliza para hacer la tarjeta del producto
-fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE)
-  .then((resp) => resp.json())
-  .then((data) => {
+
+async function tarjetasDeProductos() { //fetch que llama al .json del producto y se utiliza para hacer la tarjeta del producto
+  try {
+    const result = await fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE);
+    const data = await result.json();
+
     /*Obtengo el objeto del .json*/
     const carousel = document.getElementById("carousel");
     const infoRelatedProducts = data.relatedProducts; //Constante que guarda la info de cada producto relacionado
     //Tarjeta con la info del producto
     cards.innerHTML =
       `
-        <h5 class="card-title">${data.name} - ${data.currency} ${data.cost}</h5>
-        <h6>${data.description}</h6>
-        <p class="card-text">${data.soldCount} Vendidos</p>
-        <a href="#" class="btn btn-primary">Comprar</a>
-        <a href="#" class="btn btn-primary">Agregar al carrito</a>
-      `
-      //Carousel de fotos de cada producto
+       <h5 class="card-title">${data.name} - ${data.currency} ${data.cost}</h5>
+       <h6>${data.description}</h6>
+       <p class="card-text">${data.soldCount} Vendidos</p>
+       <a href="#" class="btn btn-primary">Comprar</a>
+       <a href="#" class="btn btn-primary">Agregar al carrito</a>
+     `
+    //Carousel de fotos de cada producto
     for (i = 0; i < data.images.length; i++) {
 
       if (i === 0) {
         carouselIndicators.innerHTML = `
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${[i]}" class="active" aria-current="true" aria-label="Slide ${[i + 1]}"></button>
-      `
+     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${[i]}" class="active" aria-current="true" aria-label="Slide ${[i + 1]}"></button>
+     `
       } else {
         carouselIndicators.innerHTML += `
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${[i]}" aria-label="Slide ${[i + 1]}"></button>
-      `
+     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${[i]}" aria-label="Slide ${[i + 1]}"></button>
+     `
       }
 
       if (i === 0) {
         carousel.innerHTML = `
-         <div class="carousel-item active">
-            <img src="${data.images[i]}" class="d-block w-100" alt="...">
-         </div>
-         `
+        <div class="carousel-item active">
+           <img src="${data.images[i]}" class="d-block w-100" alt="...">
+        </div>
+        `
       } else {
         carousel.innerHTML += `
-        <div class="carousel-item">
-          <img src="${data.images[i]}" class="d-block w-100" alt="...">
-        </div>
-       `
+       <div class="carousel-item">
+         <img src="${data.images[i]}" class="d-block w-100" alt="...">
+       </div>
+      `
       }
     }
     //Tarjeta de los productos relacionados con su info correspondiente
     for (t = 0; t < data.relatedProducts.length; t++) {
       productosRelacionados.innerHTML += `
-      <div class="card col-6">
-        <div class="card-header text-center">
-          <img src="${infoRelatedProducts[t].image}" alt="Imagen representativa de ${infoRelatedProducts[t].name}" style="width: 100%;">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">${infoRelatedProducts[t].name}</h5>
-          <a href="/product-info.html" class="btn btn-primary" onclick="setCatID(${infoRelatedProducts[t].id})">Ver Producto</a>
-        </div>
-      </div>
-      `
+     <div class="card col-6">
+       <div class="card-header text-center">
+         <img src="${infoRelatedProducts[t].image}" alt="Imagen representativa de ${infoRelatedProducts[t].name}" style="width: 100%;">
+       </div>
+       <div class="card-body">
+         <h5 class="card-title">${infoRelatedProducts[t].name}</h5>
+         <a href="/product-info.html" class="btn btn-primary" onclick="setCatID(${infoRelatedProducts[t].id})">Ver Producto</a>
+       </div>
+     </div>
+     `
     }
+  } catch (error) {
+    console.log("Error: " + error);
   }
-  )
-//Funcion para obtener el id del producto relacionado y para que te redireccione a ese producto
-function setCatID(id) {
-  localStorage.setItem("catIDP", id);
-  window.location = "products-info.html"
-
 }
-//Fetch para llamar a los comentarios de cada producto
-fetch(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("catIDP") + EXT_TYPE)
-  .then((resp) => resp.json())
-  .then((data) => {
+
+async function comentariosDeOtrosUsuarios() { //Fetch para llamar a los comentarios de cada producto
+  try {
+    const result = await fetch(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("catIDP") + EXT_TYPE);
+    const data = await result.json();
+
     //For que publica cada comentario
     for (i = 0; i < data.length; i++) {
       comentariosDePersonas.innerHTML += `<li class="list-group-item">
@@ -149,7 +149,22 @@ fetch(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("catIDP") + EXT_TYPE)
         comentariosDePersonas.innerHTML += localStorage.getItem("comentarioPropio" + i + localStorage.getItem("catIDP"));
       }
     }
-  })
+  } catch (error) {
+    console.log("Error: " + error);
+  }
+}
+
+tarjetasDeProductos();
+comentariosDeOtrosUsuarios();
+
+
+//Funcion para obtener el id del producto relacionado y para que te redireccione a ese producto
+function setCatID(id) {
+  localStorage.setItem("catIDP", id);
+  window.location = "products-info.html"
+
+}
+
 //Funcion para crear un comentario propio
 document.getElementById("btnComentar").addEventListener("click", function () {
   const comentario = document.getElementById("comentar").value;
@@ -159,11 +174,11 @@ document.getElementById("btnComentar").addEventListener("click", function () {
   const estrella_3 = document.getElementById("estrella3");
   const estrella_2 = document.getElementById("estrella2");
   const estrella_1 = document.getElementById("estrella1");
-  const estrella_0 = document.getElementById("estrella0"); 
+  const estrella_0 = document.getElementById("estrella0");
   //Esto se hace para estraer la hora
   let hoy = new Date();
   let año = hoy.getFullYear();
-  let mes = (hoy.getMonth()+1);
+  let mes = (hoy.getMonth() + 1);
   let fecha = hoy.getDate();
   let hora = hoy.getHours();
   let minutos = hoy.getMinutes();
