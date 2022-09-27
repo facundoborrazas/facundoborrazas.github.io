@@ -56,3 +56,47 @@ en el caso negativo nos recargará la pantalla de logeo*/
 
 });
 
+
+//Boton de google 
+
+function handleCredentialResponse(response) {
+    const data = jwt_decode(response.credential)
+
+    localStorage.setItem("usuario", data.name);
+    localStorage.setItem("email", data.email);
+    showAlertSuccess();
+    setTimeout(() => {
+        location.href = "index.html"
+    }, 1000);
+
+    console.log(data.name);
+    console.log(data.sub);
+    console.log(data.given_name);
+    console.log(data.family_name);
+    console.log(data.email);
+    console.log(data.email_verified);
+  
+   // picture.setAttribute("src", data.picture)
+  }
+
+  window.onload = function () {
+    const clientID = "41946208457-m2hsc97f16mm4p0j1f4tf7fpmfd4th3q.apps.googleusercontent.com";
+
+    google.accounts.id.initialize({
+      client_id: clientID,
+      callback: handleCredentialResponse
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"), {
+      theme: "filled_black",
+      size: "large",
+      type: "standard",
+      shape: "pill",
+      locale: "es-419",
+      logo_alignment: "left",
+    } // customization attributes
+    );
+
+    google.accounts.id.prompt(); // also display the One Tap dialog
+  }
