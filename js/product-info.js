@@ -53,11 +53,20 @@ const puntaje0 = `
 <span class="fa fa-star"></span>
 </p>`;
 
+var nombre = undefined;
+var monedaProducto = undefined;
+var costoProducto = 0;
+var imagenProducto = undefined;
 
 async function tarjetasDeProductos() { //fetch que llama al .json del producto y se utiliza para hacer la tarjeta del producto
   try {
     const result = await fetch(PRODUCT_INFO_URL + localStorage.getItem("catIDP") + EXT_TYPE);
     const data = await result.json();
+
+    nombre = data.name;
+    monedaProducto = data.currency;
+    costoProducto = data.cost;
+    imagenProducto = data.images[0];
 
     /*Obtengo el objeto del .json*/
     const carousel = document.getElementById("carousel");
@@ -68,8 +77,7 @@ async function tarjetasDeProductos() { //fetch que llama al .json del producto y
        <h5 class="card-title">${data.name} - ${data.currency} ${data.cost}</h5>
        <h6>${data.description}</h6>
        <p class="card-text">${data.soldCount} Vendidos</p>
-       <a href="#" class="btn btn-primary">Comprar</a>
-       <a href="#" class="btn btn-primary">Agregar al carrito</a>
+       <a href="#" class="btn btn-primary" onclick="EnvioAlCarrito()">Comprar</a>
      `
     //Carousel de fotos de cada producto
     for (i = 0; i < data.images.length; i++) {
@@ -221,3 +229,68 @@ document.getElementById("btnComentar").addEventListener("click", function () {
     vaciarComentario.value = "";
   }
 })
+
+
+html = "";
+
+function EnvioAlCarrito() {
+  console.log(nombre);
+  console.log(monedaProducto);
+  console.log(costoProducto);
+  console.log(imagenProducto);
+
+
+  if((localStorage.getItem("htmlDeProductos") === "") || (localStorage.getItem("htmlDeProductos") === null)){
+    html += `
+    <div class="row justify-content-evenly list-group-item list-group-item-action">
+       <div class="col-3">
+         <p class="text-start">
+         ${nombre}
+         <img src="${imagenProducto}" alt="imagen ilustrativa de ${nombre}" style="max-width: 10rem; max-height: 10rem;">
+         </p>
+       </div>
+       <div class="col-3">
+         <p class="">${monedaProducto} - ${costoProducto}</p>
+       </div>
+       <div class="col-3">
+         <input type="number" min="1" id="cantidad${localStorage.getItem("catIDP")}" value="1" style="width : 3rem; heigth : 3rem" onchange="cantidadProductoAgregado(${localStorage.getItem("catIDP")})">
+       </div>
+       <div class="col-3">
+         <p class="fw-bold" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
+       </div>
+     </div>
+    `;
+  
+    localStorage.setItem("htmlDeProductos", html);
+    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto);
+    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto);
+  }else{
+    html += localStorage.getItem("htmlDeProductos") + `
+    <div class="row justify-content-evenly list-group-item list-group-item-action">
+       <div class="col-3">
+         <p class="text-start">
+         ${nombre}
+         <img src="${imagenProducto}" alt="imagen ilustrativa de ${nombre}" style="max-width: 10rem; max-height: 10rem;">
+         </p>
+       </div>
+       <div class="col-3">
+         <p class="">${monedaProducto} - ${costoProducto}</p>
+       </div>
+       <div class="col-3">
+         <input type="number" min="1" id="cantidad${localStorage.getItem("catIDP")}" value="1" style="width : 3rem; heigth : 3rem" onchange="cantidadProductoAgregado(${localStorage.getItem("catIDP")})">
+       </div>
+       <div class="col-3">
+         <p class="fw-bold" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
+       </div>
+     </div>
+    `;
+    localStorage.setItem("htmlDeProductos", html);
+    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto);
+    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto);
+  }
+
+ 
+
+ 
+
+}

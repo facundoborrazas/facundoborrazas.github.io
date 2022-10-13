@@ -12,7 +12,9 @@ const editarApellido = document.getElementById("editarApellido"); //Input para e
 const editarDireccions = document.getElementById("editarDireccions"); //Input para editar la direcion
 const editarNumero = document.getElementById("editarNumero"); //Input para editar el numero
 
-const fotoPerfil = document.getElementById("fotoPerfil"); //Input para cambiar la foto de perfil
+const fotoPerfil = document.getElementById("fotoPerfil"); //Boton para cambiar la foto de perfil
+const urlPerfil = document.getElementById("urlPerfil"); //Input para cambiar la foto de perfil
+
 
 nombreDeUsuario.innerHTML = `<p>${localStorage.getItem("usuario")}</p>`
 emailUsuario.innerHTML += `<p class="fw-normal">${localStorage.getItem("email")}</p>`
@@ -73,15 +75,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 })
 
-/* Parte sin aplicar
-fotoPerfil.addEventListener("click", function () {
-    fileName = document.querySelector('#file1').value;
-    extension = fileName.substring(12);
-    console.log(extension);
-   document.querySelector("#fotoDePerfil")
-        .src = extension;
-    const fotoDePerfil = document.getElementById("fotoDePerfil");
-    fotoDePerfil.src = fileName;
 
-   
-})*/
