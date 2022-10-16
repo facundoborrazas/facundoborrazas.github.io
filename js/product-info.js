@@ -234,13 +234,8 @@ document.getElementById("btnComentar").addEventListener("click", function () {
 html = "";
 
 function EnvioAlCarrito() {
-  console.log(nombre);
-  console.log(monedaProducto);
-  console.log(costoProducto);
-  console.log(imagenProducto);
 
-
-  if((localStorage.getItem("htmlDeProductos") === "") || (localStorage.getItem("htmlDeProductos") === null)){
+  if ((localStorage.getItem("htmlDeProductos") === "") || (localStorage.getItem("htmlDeProductos") === null)) { //Si el local storage de htmlDeProductos es vacio o null
     html += `
     <div class="row justify-content-evenly list-group-item list-group-item-action">
        <div class="col-3">
@@ -260,11 +255,12 @@ function EnvioAlCarrito() {
        </div>
      </div>
     `;
-  
-    localStorage.setItem("htmlDeProductos", html);
-    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto);
-    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto);
-  }else{
+    //Se genera una tarjeta con la informacion del producto comprado
+
+    localStorage.setItem("htmlDeProductos", html); //Guarda la tarjeta
+    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto); // guarada la divisa del producto con su respectivo id
+    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto); // guarda el precio del producto con su respectivo id
+  } else { //Si el local storage de htmlDeProductos es distinto de vacio o nulo 
     html += localStorage.getItem("htmlDeProductos") + `
     <div class="row justify-content-evenly list-group-item list-group-item-action">
        <div class="col-3">
@@ -284,13 +280,15 @@ function EnvioAlCarrito() {
        </div>
      </div>
     `;
-    localStorage.setItem("htmlDeProductos", html);
-    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto);
-    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto);
+    //Agrega otra tarjeta dentro del html que ya había
+
+    localStorage.setItem("htmlDeProductos", html); //Guarda la tarjeta
+    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto); // guarada la divisa del producto con su respectivo id
+    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto); // guarda el precio del producto con su respectivo id
   }
 
- 
 
- 
+
+
 
 }
