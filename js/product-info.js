@@ -235,12 +235,17 @@ html = "";
 
 function EnvioAlCarrito() {
 
+ /*if(nombre.value <=11){
+    nombre+"      "
+    console.log(nombre);
+  }*/
+  
   if ((localStorage.getItem("htmlDeProductos") === "") || (localStorage.getItem("htmlDeProductos") === null)) { //Si el local storage de htmlDeProductos es vacio o null
     html += `
     <div class="row justify-content-evenly list-group-item list-group-item-action">
        <div class="col-3">
          <p class="text-start">
-         ${nombre}
+         ${nombre} 
          <img src="${imagenProducto}" alt="imagen ilustrativa de ${nombre}" style="max-width: 10rem; max-height: 10rem;">
          </p>
        </div>
@@ -251,7 +256,7 @@ function EnvioAlCarrito() {
          <input type="number" min="1" id="cantidad${localStorage.getItem("catIDP")}" value="1" style="width : 3rem; heigth : 3rem" onchange="cantidadProductoAgregado(${localStorage.getItem("catIDP")})">
        </div>
        <div class="col-3">
-         <p class="fw-bold" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
+         <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
        </div>
      </div>
     `;
@@ -276,7 +281,7 @@ function EnvioAlCarrito() {
          <input type="number" min="1" id="cantidad${localStorage.getItem("catIDP")}" value="1" style="width : 3rem; heigth : 3rem" onchange="cantidadProductoAgregado(${localStorage.getItem("catIDP")})">
        </div>
        <div class="col-3">
-         <p class="fw-bold" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
+         <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
        </div>
      </div>
     `;
