@@ -77,7 +77,7 @@ async function tarjetasDeProductos() { //fetch que llama al .json del producto y
        <h5 class="card-title">${data.name} - ${data.currency} ${data.cost}</h5>
        <h6>${data.description}</h6>
        <p class="card-text">${data.soldCount} Vendidos</p>
-       <a href="#" class="btn btn-primary" onclick="EnvioAlCarrito()">Comprar</a>
+       <a href="#" class="btn btn-primary" id="btn-buy">Comprar</a>
      `
     //Carousel de fotos de cada producto
     for (i = 0; i < data.images.length; i++) {
@@ -120,6 +120,28 @@ async function tarjetasDeProductos() { //fetch que llama al .json del producto y
      </div>
      `
     }
+
+    let product = {
+      id: data.id,
+      count: 1,
+      images: data.images[0],
+      cost: data.cost,
+      currency: data.currency,
+      name: data.name,
+    };
+
+    document.getElementById("btn-buy").addEventListener("click", function (e) {
+      if (localStorage.getItem("addToCart")) {
+        let listToCart = JSON.parse(localStorage.getItem("addToCart"));
+        listToCart.push(product);
+        localStorage.setItem("addToCart", JSON.stringify(listToCart));
+      } else {
+        localStorage.setItem("addToCart", JSON.stringify([product]))
+      }
+      window.location = "cart.html";
+    })
+
+
   } catch (error) {
     console.log("Error: " + error);
   }
@@ -229,71 +251,3 @@ document.getElementById("btnComentar").addEventListener("click", function () {
     vaciarComentario.value = "";
   }
 })
-
-
-html = "";
-
-function EnvioAlCarrito() {
-
- /*if(nombre.value <=11){
-    nombre+"      "
-    console.log(nombre);
-  }*/
-  
-  if ((localStorage.getItem("htmlDeProductos") === "") || (localStorage.getItem("htmlDeProductos") === null)) { //Si el local storage de htmlDeProductos es vacio o null
-    html += `
-    <div class="row justify-content-evenly list-group-item list-group-item-action">
-       <div class="col-3">
-         <p class="text-start">
-         ${nombre} 
-         <img src="${imagenProducto}" alt="imagen ilustrativa de ${nombre}" style="max-width: 10rem; max-height: 10rem;">
-         </p>
-       </div>
-       <div class="col-3">
-         <p class="">${monedaProducto} - ${costoProducto}</p>
-       </div>
-       <div class="col-3">
-         <input type="number" min="1" id="cantidad${localStorage.getItem("catIDP")}" value="1" style="width : 3rem; heigth : 3rem" onchange="cantidadProductoAgregado(${localStorage.getItem("catIDP")})">
-       </div>
-       <div class="col-3">
-         <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
-       </div>
-     </div>
-    `;
-    //Se genera una tarjeta con la informacion del producto comprado
-
-    localStorage.setItem("htmlDeProductos", html); //Guarda la tarjeta
-    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto); // guarada la divisa del producto con su respectivo id
-    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto); // guarda el precio del producto con su respectivo id
-  } else { //Si el local storage de htmlDeProductos es distinto de vacio o nulo 
-    html += localStorage.getItem("htmlDeProductos") + `
-    <div class="row justify-content-evenly list-group-item list-group-item-action">
-       <div class="col-3">
-         <p class="text-start">
-         ${nombre}
-         <img src="${imagenProducto}" alt="imagen ilustrativa de ${nombre}" style="max-width: 10rem; max-height: 10rem;">
-         </p>
-       </div>
-       <div class="col-3">
-         <p class="">${monedaProducto} - ${costoProducto}</p>
-       </div>
-       <div class="col-3">
-         <input type="number" min="1" id="cantidad${localStorage.getItem("catIDP")}" value="1" style="width : 3rem; heigth : 3rem" onchange="cantidadProductoAgregado(${localStorage.getItem("catIDP")})">
-       </div>
-       <div class="col-3">
-         <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${localStorage.getItem("catIDP")}">${monedaProducto} - ${costoProducto}</p>
-       </div>
-     </div>
-    `;
-    //Agrega otra tarjeta dentro del html que ya había
-
-    localStorage.setItem("htmlDeProductos", html); //Guarda la tarjeta
-    localStorage.setItem("monedaProducto" + localStorage.getItem("catIDP"), monedaProducto); // guarada la divisa del producto con su respectivo id
-    localStorage.setItem("costoProducto" + localStorage.getItem("catIDP"), costoProducto); // guarda el precio del producto con su respectivo id
-  }
-
-
-
-
-
-}

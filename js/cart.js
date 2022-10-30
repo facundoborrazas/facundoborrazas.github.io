@@ -1,6 +1,7 @@
 var costoDeProducto = 0;
 var moneda = undefined;
 
+
 async function compras() {
   try {
     const result = await fetch(CART_INFO_URL + "25801" + EXT_TYPE); //Llamo al json
@@ -31,6 +32,11 @@ async function compras() {
          </div>
          <div class="col-3">
            <p class="fw-bold" id="valorTotalPorProdcuto">${moneda} - ${costoDeProducto}</p>
+           <button type="button" class="btn btn-outline-danger"  id="borrar" style="width : 4rem; heigth : 4rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"></path>
+                </svg>
+          </button>
          </div>
        </div>
       `;
@@ -38,70 +44,94 @@ async function compras() {
       document.getElementById("productosEnCarrito").innerHTML = Peugeot208; //Lo pongo en la etiqueta con el id productosEnCarrito
 
     });
+    ;
+    productAddToCart();
 
 
-    if ((localStorage.getItem("htmlDeProductos") === "") || (localStorage.getItem("htmlDeProductos") === null)) { //Si el localstorage de htmlDeProductos esta vacio o nulo
-      document.getElementById("productosEnCarrito").innerHTML = document.getElementById("productosEnCarrito").innerHTML; // Se deja todo como estaba
-    } else {
-      document.getElementById("productosEnCarrito").innerHTML = document.getElementById("productosEnCarrito").innerHTML + localStorage.getItem("htmlDeProductos"); //Si no se agrega el localstorage de htmlDeProductos
-    }
-
-    //Funcion de checkbox de la tarjeta de credito
-    document.getElementById("tarjetaDeCredito").addEventListener("click", function () {
-
-      document.getElementById("numeroDeCuenta").setAttribute("disabled", "");
-
-      if (document.getElementById("numeroDeTarjeta").disabled) {
-        document.getElementById("numeroDeTarjeta").removeAttribute("disabled", "");
-        document.getElementById("CodigoDeSeguridad").removeAttribute("disabled", "");
-        document.getElementById("Vencimiento").removeAttribute("disabled", "");
-      }
-
-    });
-
-    //Funcion de checkbox de la transferencia bancaria
-    document.getElementById("transferenciaBancaria").addEventListener("click", function () {
-
-      document.getElementById("numeroDeTarjeta").setAttribute("disabled", "");
-      document.getElementById("CodigoDeSeguridad").setAttribute("disabled", "");
-      document.getElementById("Vencimiento").setAttribute("disabled", "");
-
-      if (document.getElementById("numeroDeCuenta").disabled) {
-        document.getElementById("numeroDeCuenta").removeAttribute("disabled", "");
-      }
-
-    });
-
-    //Funcion para cambiar "no se ha seleccionado" a tarjeta de credito o transferencia bancaria segun lo que hayas elegido
-    document.getElementById("cerrarGuardar").addEventListener("click", function () {
-      if (document.getElementById("transferenciaBancaria").checked) {
-        document.getElementById("selectFormaDePago").innerHTML = `
-        <p>
-        Transferencia Bancaria
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Seleccionar
-          </button>
-          </p>
-        `
-      } else if (document.getElementById("tarjetaDeCredito").checked) {
-        document.getElementById("selectFormaDePago").innerHTML = `
-        <p>
-        Tarjeta de Credito
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Seleccionar
-          </button>
-          </p>
-        `
-      }
-
-    });
 
 
   } catch (error) {
     console.log("Error: " + error);
   }
+
+}
+
+function productAddToCart() {
+  let listToCart = JSON.parse(localStorage.getItem("addToCart")); //Traigo los productos comprados y los pongo en una lista
+
+  for (i = 0; i <= listToCart.length; i++) {
+    if (listToCart[i].name.length < 11) {
+      document.getElementById("productosEnCarrito").innerHTML += `
+      <div class="row justify-content-evenly list-group-item list-group-item-action">
+       <div class="col-3">
+         <p class="text-start" style="font-size: 1.3rem;">
+         ${listToCart[i].name} 
+         <img src="${listToCart[i].images}" alt="imagen ilustrativa de ${listToCart[i].name}" style="max-width: 10rem; max-height: 10rem;">
+         </p>
+       </div>
+       <div class="col-3">
+         <p >${listToCart[i].currency} - ${listToCart[i].cost}</p>
+       </div>
+       <div class="col-3">
+         <input type="number" min="1" id="cantidad${listToCart[i].id}" value="${listToCart[i].count}" style="width : 3rem; heigth : 3rem" onchange="subTotalUnit(${listToCart[i].id},${listToCart[i].cost})">
+       </div>
+       <div class="col-3">
+         <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${listToCart[i].id}">${listToCart[i].currency} - ${listToCart[i].cost}</p>
+         <button type="button" class="btn btn-outline-danger"  id="borrar${listToCart[i].id}" onclick="deleteProduct(${i})" style="width : 4rem; heigth : 4rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"></path>
+                </svg>
+          </button>
+         </div>
+     </div>
+    `;
+    } else {
+      document.getElementById("productosEnCarrito").innerHTML += `
+      <div class="row justify-content-evenly list-group-item list-group-item-action">
+       <div class="col-3">
+         <p class="text-start">
+         ${listToCart[i].name} 
+         <img src="${listToCart[i].images}" alt="imagen ilustrativa de ${listToCart[i].name}" style="max-width: 10rem; max-height: 10rem;">
+         </p>
+       </div>
+       <div class="col-3">
+         <p >${listToCart[i].currency} - ${listToCart[i].cost}</p>
+       </div>
+       <div class="col-3">
+         <input type="number" min="1" id="cantidad${listToCart[i].id}" value="${listToCart[i].count}" style="width : 3rem; heigth : 3rem" onchange="subTotalUnit(${listToCart[i].id},${listToCart[i].cost})">
+       </div>
+       <div class="col-3">
+         <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${listToCart[i].id}">${listToCart[i].currency} - ${listToCart[i].cost}</p>
+         <button type="button" class="btn btn-outline-danger"  id="borrar${listToCart[i].id}" onclick="deleteProduct(${i})" style="width : 4rem; heigth : 4rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"></path>
+                </svg>
+          </button>
+         </div>
+     </div>
+    `;
+    }
+    console.log(listToCart[i].count);
+
+  }
+}
+
+
+function deleteProduct(i) {
+  let listToCart = JSON.parse(localStorage.getItem("addToCart"));
+  listToCart.splice(i, 1);
+  localStorage.setItem("addToCart", JSON.stringify(listToCart));
+  location.reload();
   
 }
+
+function subTotalUnit(id, cost) {
+  let count = document.getElementById("cantidad" + id).value;
+  localStorage.setItem("count" + id, count);
+  let price = document.getElementById("valorTotalPorProdcuto" + id);
+  price.innerHTML = "USD - " + (count * cost);
+}
+
 
 var costoDeProductoXcantidad = 0;
 
@@ -109,25 +139,17 @@ function cantidad() { //Funcion para calcular el precio del producto llamado por
   const cantidad = document.getElementById("cantidad"); //Se guarda en una constante la etiqueta con id=cantidad
   costoDeProductoXcantidad = costoDeProducto * cantidad.value; //Se genera una variable que tendrá el valor del costo del producto por la cantidad elegida de productos
   document.getElementById("valorTotalPorProdcuto").innerHTML = moneda + " - " + (costoDeProductoXcantidad); // Luego se sustituye lo que habia en la etuiqueta con id=valorTotalPorProdcuto con el nuevo precio 
-  
-}
 
-//const cantidad 
-var costoDeProductoAgregadoXcantidad = 0;
-
-function cantidadProductoAgregado(id) { //Funcion para calcular el precio del producto comprado por nosotros mismos 
-  const cantidad = document.getElementById("cantidad" + id); //Se guarda en una constante la etiqueta con id=cantidad+id
-  costoDeProductoAgregadoXcantidad = localStorage.getItem("costoProducto" + id) * cantidad.value; //Se genera una variable que tendrá el valor del costo del producto por la cantidad elegida de productos
-  document.getElementById("valorTotalPorProdcuto" + id).innerHTML = localStorage.getItem("monedaProducto" + id) + " - " + (costoDeProductoAgregadoXcantidad); // Luego se sustituye lo que habia en la etuiqueta con id=valorTotalPorProdcuto+id con el nuevo precio
-  localStorage.setItem("precioProductoAgregado" + id, localStorage.getItem("monedaProducto" + id) + " - " + (localStorage.getItem("costoProducto" + id) * cantidad.value));
-  
-  
- 
 }
 
 compras();
 
+
+
+// Validaciones:
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
+// Validacion de boostrap
 (function () {
   'use strict'
 
@@ -138,7 +160,6 @@ compras();
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
-        console.log(event.target[9].value);
         if (!form.checkValidity()) {
           event.preventDefault()
           event.stopPropagation()
@@ -229,3 +250,53 @@ function validatedInputs() {
   }
 
 }
+
+//Funcion de checkbox de la tarjeta de credito
+document.getElementById("tarjetaDeCredito").addEventListener("click", function () {
+
+  document.getElementById("numeroDeCuenta").setAttribute("disabled", "");
+
+  if (document.getElementById("numeroDeTarjeta").disabled) {
+    document.getElementById("numeroDeTarjeta").removeAttribute("disabled", "");
+    document.getElementById("CodigoDeSeguridad").removeAttribute("disabled", "");
+    document.getElementById("Vencimiento").removeAttribute("disabled", "");
+  }
+
+});
+
+//Funcion de checkbox de la transferencia bancaria
+document.getElementById("transferenciaBancaria").addEventListener("click", function () {
+
+  document.getElementById("numeroDeTarjeta").setAttribute("disabled", "");
+  document.getElementById("CodigoDeSeguridad").setAttribute("disabled", "");
+  document.getElementById("Vencimiento").setAttribute("disabled", "");
+
+  if (document.getElementById("numeroDeCuenta").disabled) {
+    document.getElementById("numeroDeCuenta").removeAttribute("disabled", "");
+  }
+
+});
+
+//Funcion para cambiar "no se ha seleccionado" a tarjeta de credito o transferencia bancaria segun lo que hayas elegido
+document.getElementById("cerrarGuardar").addEventListener("click", function () {
+  if (document.getElementById("transferenciaBancaria").checked) {
+    document.getElementById("selectFormaDePago").innerHTML = `
+    <p>
+    Transferencia Bancaria
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Seleccionar
+      </button>
+      </p>
+    `
+  } else if (document.getElementById("tarjetaDeCredito").checked) {
+    document.getElementById("selectFormaDePago").innerHTML = `
+    <p>
+    Tarjeta de Credito
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Seleccionar
+      </button>
+      </p>
+    `
+  }
+
+});
