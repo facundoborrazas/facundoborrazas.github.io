@@ -1,78 +1,79 @@
-const nombreDeUsuario = document.getElementById("nombreDeUsuario"); //Nombre de usuario sacado con el email
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
 
-const nombreUsuario = document.getElementById("nombreUsuario"); //Nombre verdadero del usuario
-const apellidoUsuario = document.getElementById("apellidoUsuario"); //Apellido verdadero del usuario
-const emailUsuario = document.getElementById("emailUsuario"); //Email con el que ingreso el usuario
-const direccionUsuario = document.getElementById("direccionUsuario"); //Direccion del usuario
-const numeroUsuario = document.getElementById("numeroUsuario");//Numero del usuario
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
 
+  if ((localStorage.getItem("nombreUser") !== "")) {
+    document.getElementById("validationCustom01").value = localStorage.getItem("nombreUser");
+  }
+  if ((localStorage.getItem("apellidoUser") !== "")) {
+    document.getElementById("validationCustom02").value = localStorage.getItem("apellidoUser");
+  }
+  if ((localStorage.getItem("emailUser") !== "")) {
+    document.getElementById("validationCustom03").value = localStorage.getItem("emailUser");
+  }
+  if ((localStorage.getItem("2doNombreUser") !== "")) {
+    document.getElementById("validationCustom04").value = localStorage.getItem("2doNombreUser");
+  }
+  if ((localStorage.getItem("2doApellidoUser") !== "")) {
+    document.getElementById("validationCustom05").value = localStorage.getItem("2doApellidoUser");
+  }
+  if ((localStorage.getItem("telUser") !== "")) {
+    document.getElementById("validationCustom06").value = localStorage.getItem("telUser");
+  }
+  if ((localStorage.getItem("photoPerfil") !== "")) {
+    document.getElementById("fotoDePerfil").src = localStorage.getItem("photoPerfil");
+  }
 
-const editarNombre = document.getElementById("editarNombre"); //Input para editar el nombre
-const editarApellido = document.getElementById("editarApellido"); //Input para editar el apellido
-const editarDireccions = document.getElementById("editarDireccions"); //Input para editar la direcion
-const editarNumero = document.getElementById("editarNumero"); //Input para editar el numero
-
-const fotoPerfil = document.getElementById("fotoPerfil"); //Boton para cambiar la foto de perfil
-const urlPerfil = document.getElementById("urlPerfil"); //Input para cambiar la foto de perfil
-
-
-nombreDeUsuario.innerHTML = `<p>${localStorage.getItem("usuario")}</p>`
-emailUsuario.innerHTML += `<p class="fw-normal">${localStorage.getItem("email")}</p>`
-
-document.addEventListener("DOMContentLoaded", function () {
-    const OK0 = document.getElementById("OK0");
-    const OK1 = document.getElementById("OK1");
-    const OK3 = document.getElementById("OK3");
-    const OK4 = document.getElementById("OK4");
-
-    OK0.addEventListener("click", function () {
-        if (editarNombre.value.length > 0) {
-            localStorage.setItem("editarNombre", editarNombre.value);
-            nombreUsuario.innerHTML = `<p class="mt-3 fw-bold">Nombre:</p><p class="fw-normal">${localStorage.getItem("editarNombre")}</p>`
-        }
-    })
-
-    OK1.addEventListener("click", function () {
-        if (editarApellido.value.length > 0) {
-            localStorage.setItem("editarApellido", editarApellido.value);
-            apellidoUsuario.innerHTML = `<p class="mt-3 fw-bold">Apellido:</p><p class="fw-normal">${localStorage.getItem("editarApellido")}</p>`
-        }
-    })
-
-    OK3.addEventListener("click", function () {
-        if (editarDireccions.value.length > 0) {
-            localStorage.setItem("editarDireccions", editarDireccions.value);
-            direccionUsuario.innerHTML = `<p class="mt-3 fw-bold">Diereccion:</p><p class="fw-normal">${localStorage.getItem("editarDireccions")}</p>`
-        }
-    })
-
-    OK4.addEventListener("click", function () {
-        if (editarNumero.value.length > 0) {
-            localStorage.setItem("editarNumero", editarNumero.value);
-            numeroUsuario.innerHTML = `<p class="mt-3 fw-bold">Apellido:</p><p class="fw-normal">${localStorage.getItem("editarNumero")}</p>`
-        }
-    })
-
-    if (localStorage.getItem("editarNombre") !== null) {
-        nombreUsuario.innerHTML = `<p class="mt-3 fw-bold">Nombre:</p><p class="fw-normal">${localStorage.getItem("editarNombre")}</p>`
+  document.addEventListener("DOMContentLoaded", function () {
+    if ((localStorage.getItem("photoPerfil") === "")||(localStorage.getItem("photoPerfil") === null)) {
+      document.getElementById("fotoDePerfil").src = "/img/img_perfil.png";
     }
-    if (localStorage.getItem("editarApellido") !== null) {
-        apellidoUsuario.innerHTML = `<p class="mt-3 fw-bold">Apellido:</p><p class="fw-normal">${localStorage.getItem("editarApellido")}</p>`
-    }
-    if (localStorage.getItem("editarDireccions") !== null) {
-        direccionUsuario.innerHTML = `<p class="mt-3 fw-bold">Dirección:</p><p class="fw-normal">${localStorage.getItem("editarDireccions")}</p>`
-    }
-    if (localStorage.getItem("editarNumero") !== null) {
-        numeroUsuario.innerHTML = `<p class="mt-3 fw-bold">Número:</p><p class="fw-normal">${localStorage.getItem("editarNumero")}</p>`
-    }
+  })
 
-    for (i = 0; i < 6; i++) {
-        comentariosHechos.innerHTML = `<p class="text-center mt-5 text-muted">No hay ningun comentario hecho</p>`;
-        if (localStorage.getItem("comentarioPropio" + i + localStorage.getItem("catIDP")) !== null) {
-            comentariosHechos.innerHTML ="";
-            comentariosHechos.innerHTML += localStorage.getItem("comentarioPropio" + i + localStorage.getItem("catIDP"));
-        }
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
       }
-})
+      localStorage.setItem("nombreUser", document.getElementById("validationCustom01").value);
+      localStorage.setItem("apellidoUser", document.getElementById("validationCustom02").value);
+      localStorage.setItem("emailUser", document.getElementById("validationCustom03").value);
+      localStorage.setItem("2doNombreUser", document.getElementById("validationCustom04").value);
+      localStorage.setItem("2doApellidoUser", document.getElementById("validationCustom05").value);
+      localStorage.setItem("telUser", document.getElementById("validationCustom06").value);
+      form.classList.add('was-validated')
+    }, false)
+  })
 
+
+})()
+
+document.getElementById("nombreDeUsuario").innerHTML += `<p>${localStorage.getItem("usuario")}</p>`
+
+
+function encodeImageFileAsURL() {
+
+  var filesSelected = document.getElementById("formFileSm").files;
+
+  if (filesSelected.length > 0) {
+    var fileToLoad = filesSelected[0];
+
+    var fileReader = new FileReader();
+
+    fileReader.onload = function (fileLoadedEvent) {
+      var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+      var newImage = document.getElementById("fotoDePerfil");
+      newImage.src = srcData;
+      localStorage.setItem("photoPerfil", srcData);
+    }
+    fileReader.readAsDataURL(fileToLoad);
+  }
+}
 
