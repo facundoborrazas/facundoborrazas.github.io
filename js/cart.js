@@ -17,20 +17,19 @@ async function compras() {
 
       const Peugeot208 = `
       <div class="row justify-content-evenly list-group-item list-group-item-action">
-         <div class="col-3">
+         <div class="col-3 col-lg-2 col-xl-2">
            <p class="text-start">
            ${element.name}
-           <img src="${element.image}" alt="imagen ilustrativa de ${element.name}" style="max-width: 10rem; max-height: 10rem;">
+           <img src="${element.image}" alt="imagen ilustrativa de ${element.name}" style="max-width: 6rem; max-height: 6rem;">
            </p>
-           
          </div>
-         <div class="col-3">
+         <div class="col-3 col-lg-3 col-xl-3">
            <p class="">${element.currency} - ${element.unitCost}</p>
          </div>
-         <div class="col-3">
+         <div class="col-3 col-lg-3 col-xl-3">
            <input type="number" min="1" id="cantidad" value="${element.count}" style="width : 3rem; heigth : 3rem" onchange="cantidad()">
          </div>
-         <div class="col-3">
+         <div class="col-3 col-lg-4 col-xl-4">
            <p class="fw-bold" id="valorTotalPorProdcuto">${moneda} - ${costoDeProducto}</p>
            <button type="button" class="btn btn-outline-danger"  id="borrar" style="width : 4rem; heigth : 4rem">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -56,6 +55,8 @@ async function compras() {
 
 }
 
+let a = 0;
+
 function productAddToCart() {
   let listToCart = JSON.parse(localStorage.getItem("addToCart")); //Traigo los productos comprados y los pongo en una lista
 
@@ -63,19 +64,19 @@ function productAddToCart() {
     if (listToCart[i].name.length < 11) {
       document.getElementById("productosEnCarrito").innerHTML += `
       <div class="row justify-content-evenly list-group-item list-group-item-action">
-       <div class="col-3">
+       <div class="col-3 col-lg-2 col-xl-2">
          <p class="text-start" style="font-size: 1.3rem;">
          ${listToCart[i].name} 
-         <img src="${listToCart[i].images}" alt="imagen ilustrativa de ${listToCart[i].name}" style="max-width: 10rem; max-height: 10rem;">
+         <img src="${listToCart[i].images}" alt="imagen ilustrativa de ${listToCart[i].name}" style="max-width: 6rem; max-height: 6rem;">
          </p>
        </div>
-       <div class="col-3">
+       <div class="col-3 col-lg-3 col-xl-3">
          <p >${listToCart[i].currency} - ${listToCart[i].cost}</p>
        </div>
-       <div class="col-3">
+       <div class="col-3 col-lg-3 col-xl-3">
          <input type="number" min="1" id="cantidad${listToCart[i].id}" value="${listToCart[i].count}" style="width : 3rem; heigth : 3rem" onchange="subTotalUnit(${listToCart[i].id},${listToCart[i].cost})">
        </div>
-       <div class="col-3">
+       <div class="col-3 col-lg-4 col-xl-4">
          <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${listToCart[i].id}">${listToCart[i].currency} - ${listToCart[i].cost}</p>
          <button type="button" class="btn btn-outline-danger"  id="borrar${listToCart[i].id}" onclick="deleteProduct(${i})" style="width : 4rem; heigth : 4rem">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -88,19 +89,19 @@ function productAddToCart() {
     } else {
       document.getElementById("productosEnCarrito").innerHTML += `
       <div class="row justify-content-evenly list-group-item list-group-item-action">
-       <div class="col-3">
+       <div class="col-3 col-lg-2 col-xl-2">
          <p class="text-start">
          ${listToCart[i].name} 
-         <img src="${listToCart[i].images}" alt="imagen ilustrativa de ${listToCart[i].name}" style="max-width: 10rem; max-height: 10rem;">
+         <img src="${listToCart[i].images}" alt="imagen ilustrativa de ${listToCart[i].name}" style="max-width: 6rem; max-height: 6rem;">
          </p>
        </div>
-       <div class="col-3">
+       <div class="col-3 col-lg-3 col-xl-3">
          <p >${listToCart[i].currency} - ${listToCart[i].cost}</p>
        </div>
-       <div class="col-3">
+       <div class="col-3 col-lg-3 col-xl-3">
          <input type="number" min="1" id="cantidad${listToCart[i].id}" value="${listToCart[i].count}" style="width : 3rem; heigth : 3rem" onchange="subTotalUnit(${listToCart[i].id},${listToCart[i].cost})">
        </div>
-       <div class="col-3">
+       <div class="col-3 col-lg-4 col-xl-4">
          <p class="fw-bold valorDeProducto" id="valorTotalPorProdcuto${listToCart[i].id}">${listToCart[i].currency} - ${listToCart[i].cost}</p>
          <button type="button" class="btn btn-outline-danger"  id="borrar${listToCart[i].id}" onclick="deleteProduct(${i})" style="width : 4rem; heigth : 4rem">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -111,7 +112,19 @@ function productAddToCart() {
      </div>
     `;
     }
-    console.log(listToCart[i].count);
+
+    if (a === 0) {
+      a = parseInt(listToCart[i].cost);
+      document.getElementById("subTotalGral").innerHTML = "USD - " + a;
+    } else {
+      a = a + parseInt(listToCart[i].cost);
+      document.getElementById("subTotalGral").innerHTML = "USD - " + a;
+    }
+
+    /*if((listToCart[i].count).change){
+      console.log("a");
+    }
+    */
 
   }
 }
@@ -122,7 +135,7 @@ function deleteProduct(i) {
   listToCart.splice(i, 1);
   localStorage.setItem("addToCart", JSON.stringify(listToCart));
   location.reload();
-  
+
 }
 
 function subTotalUnit(id, cost) {
@@ -130,6 +143,8 @@ function subTotalUnit(id, cost) {
   localStorage.setItem("count" + id, count);
   let price = document.getElementById("valorTotalPorProdcuto" + id);
   price.innerHTML = "USD - " + (count * cost);
+  let p = a - (parseInt(cost)) + (parseInt(count * cost));
+  document.getElementById("subTotalGral").innerHTML = "USD - " + p;
 }
 
 

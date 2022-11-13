@@ -32,7 +32,7 @@ function inicioDeSeccion() {
         }else if((localStorage.getItem("photoPerfil") !== "")||(localStorage.getItem("photoPerfil") !== null)){
             perfil.innerHTML = `<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="${localStorage.getItem("photoPerfil")}" alt="" width="30" height="24"> ${localStorage.getItem("usuario")} 
+            <img src="${localStorage.getItem("photoPerfil")}" alt="" width="30" height="24" style="border-radius: 50%;"> ${localStorage.getItem("usuario")} 
             </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="./my-profile.html">Perfil</a></li>
