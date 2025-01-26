@@ -68,7 +68,10 @@ Cada dos semanas se proponían nuevas funcionalidades para implementar. Además,
 ---
 
 ## Demo
-🌐 Explorá el proyecto aquí: [e-commerce](https://project03e-commerce-jap-fb.netlify.app/).  
+🌐 Explorá el proyecto aquí: [e-commerce](https://project03e-commerce-jap-fb.netlify.app/). 
+> [!NOTE]
+> No necesitas estar registrado para loguearte y navegar el portal, solo ingresa un email y contraseña valida
+
 🎥 Vista previa en GIF:  
 ![Demo parte uno](https://github.com/user-attachments/assets/3768120e-8289-4713-b2ec-c7f01545f611)  
 ![Demo parte dos](https://github.com/user-attachments/assets/f1176298-5d07-45fd-b508-46b2723b8e06)  
