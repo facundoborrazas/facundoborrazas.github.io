@@ -76,4 +76,5 @@ Cada dos semanas se proponían nuevas funcionalidades para implementar. Además,
 
 ---
 
-Muchas gracias por llegar hasta aquí, espero que te haya gustado 😊
+Muchas gracias por llegar hasta aquí, espero que te haya gustado 😊 <br>
+P.D: Si deseas saber como me fue en el año con este proyecto te dejo aquí mi certificiado para que puedas analizarlo: [Certificado JaP](https://github.com/user-attachments/files/18550013/Certificado.JaP.Nivel.2.pdf)
